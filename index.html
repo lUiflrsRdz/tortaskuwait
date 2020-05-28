@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Mapa de cobertura</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+	
+<div id="map"></div>
+<script>
+	// TO MAKE THE MAP APPEAR YOU MUST
+	// ADD YOUR ACCESS TOKEN FROM
+	// https://account.mapbox.com
+	mapboxgl.accessToken = 'pk.eyJ1IjoibHVpZmxycyIsImEiOiJja2FsdzRrczIxNmV2MzZzMHRzeDB3MzB3In0.vxZ4ETRnw0HZZqFmwTlHLw';
+    
+		var bounds = [
+			[-106.499263, 23.178651], // Southwest coordinates
+			 [-106.344081, 23.292065]// Northeast coordinates
+			];
+	
+	var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+        center: [-106.422376, 23.195257], // starting position [lng, lat]
+		minZoom: 12,
+		maxZoom: 20,
+		maxBounds: bounds,
+		zoom: 15 // starting zoom
+    });
+	
+		
+		
+		map.on('load', function() {
+		map.addSource('maine', {
+		'type': 'geojson',
+		'data': {
+		'type': 'Feature',
+		'geometry': {
+		'type': 'Polygon',
+		'coordinates': [
+							[
+							[-106.425372, 23.181568],
+							[-106.424458, 23.185641],
+							[-106.420686, 23.187061],
+							[-106.417890, 23.188376],
+							[-106.410149, 23.207245],
+							[-106.405185, 23.214483],
+
+							[-106.424607, 23.222764],
+							[-106.421412, 23.217029],
+							[-106.421587, 23.211896],
+							[-106.424397, 23.207591],
+							[-106.427552, 23.208487],
+							[-106.430198, 23.203261],
+							[-106.430683, 23.201444],
+							[-106.428024, 23.199082],
+							[-106.426472, 23.195258],
+							[-106.427970, 23.193594],
+							[-106.427575, 23.188988],
+							[-106.424904, 23.186431],
+							[-106.425545, 23.183376]
+							]
+							]
+							}
+							}
+							});
+								map.addLayer({
+							'id': 'maine',
+							'type': 'fill',
+							'source': 'maine',
+							'layout': {},
+							'paint': {
+							'fill-color': '#4DFF33',
+							'fill-opacity': 0.4
+							}
+							});
+							});	
+	
+		map.on('load', function() {
+		map.addSource('maine1', {
+		'type': 'geojson',
+		'data': {
+		'type': 'Feature',
+		'geometry': {
+		'type': 'Polygon',
+		'coordinates': [
+							[
+
+							[-106.408795, 23.210409],
+							[-106.422644, 23.219781],
+							[-106.428922, 23.227048],
+							[-106.425539, 23.231412],
+							[-106.418405, 23.231727],
+							[-106.388703, 23.219296],
+							[-106.387635, 23.216289],
+							[-106.391530, 23.213957],
+							[-106.390973, 23.218151],
+							[-106.392353, 23.218232],
+							[-106.393266, 23.212914],
+							[-106.401011, 23.211891],
+							[-106.406317, 23.212447]
+							]
+							]
+							}
+							}
+							});
+								map.addLayer({
+							'id': 'maine1',
+							'type': 'fill',
+							'source': 'maine1',
+							'layout': {},
+							'paint': {
+							'fill-color': '#FFF633',
+							'fill-opacity': 0.4
+							}
+							});
+							});	
+
+
+		map.on('load', function() {
+		map.addSource('maine2', {
+		'type': 'geojson',
+		'data': {
+		'type': 'Feature',
+		'geometry': {
+		'type': 'Polygon',
+		'coordinates': [
+							[
+
+							[-106.428884, 23.226998],
+							[-106.451674, 23.241987],
+							[-106.437196, 23.253678],
+							[-106.420267, 23.249587],
+							[-106.410471, 23.246371],
+							[-106.387414, 23.222060],
+							[-106.399300, 23.221291],
+							[-106.417167, 23.229610]
+							]
+							]
+							}
+							}
+							});
+								map.addLayer({
+							'id': 'maine2',
+							'type': 'fill',
+							'source': 'maine2',
+							'layout': {},
+							'paint': {
+							'fill-color': '#FF3617',
+							'fill-opacity': 0.4
+							}
+							});
+							});	
+
+		// Add geolocate control to the map.
+		map.addControl(
+		new mapboxgl.GeolocateControl({
+		positionOptions: {
+		enableHighAccuracy: true
+		},
+		trackUserLocation: true
+		})
+		);
+			
+
+			
+		map.on('load', function() {
+		map.loadImage(
+		'https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png',
+		function(error, image) {
+		if (error) throw error;
+		map.addImage('cat', image);
+		map.addSource('point', {
+		'type': 'geojson',
+		'data': {
+		'type': 'FeatureCollection',
+		'features': [
+		{
+		'type': 'Feature',
+		'geometry': {
+		'type': 'Point',
+		'coordinates': [-106.422376, 23.195257]
+		}
+		}
+		]
+		}
+		});
+		map.addLayer({
+		'id': 'points',
+		'type': 'symbol',
+		'source': 'point',
+		'layout': {
+		'icon-image': 'cat',
+		'icon-size': 0.25
+		}
+		});
+		}
+		);
+		});	
+							
+						
+							
+							
+							
+							
+							
+</script>
+
+</body>
+</html>
